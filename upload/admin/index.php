@@ -13,7 +13,7 @@ if (!defined('DIR_APPLICATION')) {
 	exit;
 }
 
-// Startup
+// Startup CHARADE
 require_once(DIR_SYSTEM . 'startup.php');
 
 start('admin');
