@@ -1,0 +1,35 @@
+<?php
+// Text
+$_['text_new_subject']          = '%s - 訂單編號 %s';
+$_['text_new_greeting']         = '感謝您購買 %s 的商品，您的訂單已經建立，我們將在收到您的付款後，盡快處理您的訂單。';
+$_['text_new_received']         = '您已接收一份訂單。';
+$_['text_new_link']             = '點擊底下的連結檢視您的訂單：';
+$_['text_new_order_detail']     = '訂單明細';
+$_['text_new_instruction']      = '說明：';
+$_['text_new_order_id']         = '訂單編號：';
+$_['text_new_date_added']       = '訂單日期：';
+$_['text_new_order_status']     = '訂單狀態：';
+$_['text_new_payment_method']   = '付款方式：';
+$_['text_new_shipping_method']  = '運送方式：';
+$_['text_new_email']            = 'Email 信箱：';
+$_['text_new_telephone']        = '連絡電話：';
+$_['text_new_ip']  	        	= 'IP 位址：';
+$_['text_new_payment_address']  = '付款地址';
+$_['text_new_shipping_address'] = '運送地址';
+$_['text_new_products']         = '商品';
+$_['text_new_product']          = '商品';
+$_['text_new_model']            = '型號';
+$_['text_new_quantity']         = '數量';
+$_['text_new_price']            = '價格';
+$_['text_new_order_total']      = '小計';
+$_['text_new_total']            = '總計：';
+$_['text_new_download']         = '確認付款後您將透過以下連結下載商品：';
+$_['text_new_comment']          = '訂單備註：';
+$_['text_new_footer']           = '如果您有任何疑問，請直接回覆此郵件。';
+$_['text_update_subject']       = '%s - 訂單更新 %s';
+$_['text_update_order']         = '訂單編號：';
+$_['text_update_date_added']    = '訂單日期：';
+$_['text_update_order_status']  = '您的訂單已經更新：';
+$_['text_update_comment']       = '您的訂單備註：';
+$_['text_update_link']          = '需要檢視訂單，請點擊下面連結：';
+$_['text_update_footer']        = '如果您有任何問題請回覆本郵件。';
