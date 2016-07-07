@@ -5,6 +5,7 @@ $_['text_product']      = '商品';
 $_['text_error']        = '商品分類不存在！';
 $_['text_empty']        = '抱歉！ 此商品分類暫時沒有相關商品。';
 $_['text_quantity']     = '數量：';
+$_['text_qty']          = '數量';
 $_['text_manufacturer'] = '品牌：';
 $_['text_model']        = '型號：'; 
 $_['text_points']       = '積點：'; 

@@ -124,11 +124,19 @@
                 </p>
                 <?php } ?>
               </div>
-              <div class="button-group">
-                <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span></button>
-                <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
-                <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
-              </div>
+            <div style="display: table;">
+                <div class="input-group" style="width:130px; line-height: 38px;">
+                    <span class="input-group-addon" style="font-size: 14px; font-weight: 900;"><?php echo $text_qty; ?></span>
+                    <input class="form-control" type="number" min="1" max="9999" value="1" style="font-size: 15px; height: 40px;"/>
+                </div>
+                <div class="button-group" style="display: table-cell; width: 100%;">
+                    <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span></button>
+                    <!--
+                    <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart" style="color:red;"></i></button>
+                    <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange" style="color:#158923;"></i></button>
+                    -->
+                </div>
+            </div>
             </div>
           </div>
         </div>

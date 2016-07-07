@@ -99,6 +99,7 @@ class ControllerProductCategory extends Controller {
 			$data['text_refine'] = $this->language->get('text_refine');
 			$data['text_empty'] = $this->language->get('text_empty');
 			$data['text_quantity'] = $this->language->get('text_quantity');
+			$data['text_qty'] = $this->language->get('text_qty');
 			$data['text_manufacturer'] = $this->language->get('text_manufacturer');
 			$data['text_model'] = $this->language->get('text_model');
 			$data['text_price'] = $this->language->get('text_price');
