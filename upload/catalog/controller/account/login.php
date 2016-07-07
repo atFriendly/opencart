@@ -122,7 +122,7 @@ class ControllerAccountLogin extends Controller {
 		$data['entry_email'] = $this->language->get('entry_email');
 		$data['entry_password'] = $this->language->get('entry_password');
 
-		$data['button_continue'] = $this->language->get('button_continue');
+		$data['button_continue'] = $this->language->get('text_register');
 		$data['button_login'] = $this->language->get('button_login');
 
 		if (isset($this->session->data['error'])) {

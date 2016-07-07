@@ -7,7 +7,16 @@ class ControllerStartupRouter extends Controller {
 		} else {
 			$route = $this->config->get('action_default');
 		}
-		
+
+		$this->load->model('account/customer');
+		if (!$this->customer->isLogged() ) {
+			if(!isset($this->request->get['route'])){
+				$route = $this->config->get('action_login');
+			}else if(isset($this->request->get['route']) && $this->request->get['route'] != 'account/register'){
+				$route = $this->config->get('action_login');
+			}
+		}
+
 		// Sanitize the call
 		$route = str_replace('../', '', (string)$route);
 		

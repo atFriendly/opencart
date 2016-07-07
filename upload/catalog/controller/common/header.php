@@ -147,6 +147,21 @@ class ControllerCommonHeader extends Controller {
 			$data['class'] = 'common-home';
 		}
 
+		//加入判斷登入頁時, 隱藏資訊的參數
+		if(!isset($this->request->get['route'])){
+			$data['isFromLogin'] = false;
+		}else if(isset($this->request->get['route']) && ($this->request->get['route'] == 'account/login' || $this->request->get['route'] == 'account/logout'|| $this->request->get['route'] == 'account/register')){
+			$data['isFromLogin'] = false;
+		}else{
+			$this->load->model('account/customer');
+			if ($this->customer->isLogged() ) {
+				$data['isFromLogin'] = true;
+			}else{
+				$data['isFromLogin'] = false;
+			}
+		}
+
+
 		return $this->load->view('common/header', $data);
 	}
 }
