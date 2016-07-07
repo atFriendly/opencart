@@ -13,7 +13,7 @@ $_['text_i_am_returning_customer'] = '如果您已經是本站會員，請直接
 $_['text_forgotten']               = '忘記密碼？';
 
 // Entry
-$_['entry_email']                  = '帳號(測試一下)';
+$_['entry_email']                  = '帳號';
 $_['entry_password']               = '密碼';
 
 // Error
