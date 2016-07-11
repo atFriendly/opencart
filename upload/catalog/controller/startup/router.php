@@ -8,11 +8,16 @@ class ControllerStartupRouter extends Controller {
 			$route = $this->config->get('action_default');
 		}
 
+		//非登入行為下, 需要例外放行的連結 加在這裡
 		$this->load->model('account/customer');
 		if (!$this->customer->isLogged() ) {
 			if(!isset($this->request->get['route'])){
 				$route = $this->config->get('action_login');
-			}else if(isset($this->request->get['route']) && $this->request->get['route'] != 'account/register'){
+			}else if(isset($this->request->get['route']) && ($this->request->get['route'] != 'account/register' && $this->request->get['route'] != 'account/account'
+					&& $this->request->get['route'] != 'account/register/customfield'
+					&& $this->request->get['route'] != 'account/account/country'
+					&& $this->request->get['route'] != 'api/login'
+				)){
 				$route = $this->config->get('action_login');
 			}
 		}
