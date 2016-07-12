@@ -108,6 +108,19 @@ class ControllerCommonMenu extends Controller {
 		$data['text_openbay_report_price'] = $this->language->get('text_openbay_report_price');
 		$data['text_openbay_order_import'] = $this->language->get('text_openbay_order_import');
 
+
+		//新加入的取得使用者並判斷可看到的清單選項
+		$this->load->model('user/user');
+		$user_info = $this->model_user_user->getUser($this->user->getId());
+		$isSuperUser = false;
+		if($user_info){
+			$groupId = $user_info['groupId'] ;
+			if($groupId == 1 || $groupId == '1'){
+				$isSuperUser = true;
+			}
+		}
+		$data['isSuperUser']  = $isSuperUser;
+
 		$data['analytics'] = $this->url->link('extension/analytics', 'token=' . $this->session->data['token'], true);
 		$data['home'] = $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true);
 		$data['affiliate'] = $this->url->link('marketing/affiliate', 'token=' . $this->session->data['token'], true);
