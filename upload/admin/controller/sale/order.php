@@ -158,7 +158,21 @@ class ControllerSaleOrder extends Controller {
 
 		$order_total = $this->model_sale_order->getTotalOrders($filter_data);
 
-		$results = $this->model_sale_order->getOrders($filter_data);
+		//pablo 先寫固定的
+		$this->load->model('user/user');
+		$userId = $this->user->getId();
+		if($userId == 4){
+			$results = $this->model_sale_order->getOrdersTest($filter_data, 1);
+		}else if($userId == 5){
+			$results = $this->model_sale_order->getOrdersTest($filter_data, 2);
+		}else if($userId == 1){
+			$results = $this->model_sale_order->getOrders($filter_data);
+		}else{
+			$results = $this->model_sale_order->getOrdersTest($filter_data, 3);
+		}
+		
+		
+//		$results = $this->model_sale_order->getOrders($filter_data);
 
 		foreach ($results as $result) {
 			$data['orders'][] = array(
