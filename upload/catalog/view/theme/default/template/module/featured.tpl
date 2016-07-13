@@ -1,42 +1,165 @@
-<h3><?php echo $heading_title; ?></h3>
+<!--
+<h3>
+    <?php echo $heading_title; ?>
+</h3>
+-->
 <div class="row">
-  <?php foreach ($products as $product) { ?>
-  <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
-    <div class="product-thumb transition">
-      <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a></div>
-      <div class="caption">
-        <h4><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h4>
-        <p><?php echo $product['description']; ?></p>
-        <?php if ($product['rating']) { ?>
-        <div class="rating">
-          <?php for ($i = 1; $i <= 5; $i++) { ?>
-          <?php if ($product['rating'] < $i) { ?>
-          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
-          <?php } else { ?>
-          <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
-          <?php } ?>
-          <?php } ?>
+    <div class="col-sm-12">
+        <div class="table-responsive">
+            <table class="products table table-bordered">
+                <thead>
+                    <tr>
+                        <td class="text-left"><?php echo $text_name; ?></td>
+                        <td class="text-left"><?php echo $text_model; ?></td>
+                        <td class="text-right"><?php echo $text_price; ?></td>
+                        <td class="text-right"><?php echo $text_quantity; ?></td>
+                        <td class="text-right"><?php echo $text_sub_total; ?></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($products as $product) { ?>
+                    <tr>
+                        <td class="text-left" data-id="<?php echo $product['product_id']; ?>">
+                            <a href="<?php echo $product['href']; ?>">
+                                <?php echo $product['name']; ?>
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <span class="model">
+                                <?php echo $product['model']; ?>
+                            </span>
+                        </td>
+                        <td class="price text-right">
+                            <?php
+                            if ($product['price'] or $product['special']) {
+                                if ($product['special']) {
+                                    echo $product['special'];
+                                }
+                                else {
+                                    echo $product['price'];
+                                }
+                            }
+                            ?>
+                        </td>
+                        <td class="text-right" align="right">
+                            <input class="form-control" type="number" id="quantity" min="0" max="999" value="0" style="display: inline; font-size: 15px; "/>
+                        </td>
+                        <td class="subtotal text-right">
+                            0
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
-        <?php } ?>
-        <?php if ($product['price']) { ?>
-        <p class="price">
-          <?php if (!$product['special']) { ?>
-          <?php echo $product['price']; ?>
-          <?php } else { ?>
-          <span class="price-new"><?php echo $product['special']; ?></span> <span class="price-old"><?php echo $product['price']; ?></span>
-          <?php } ?>
-          <?php if ($product['tax']) { ?>
-          <span class="price-tax"><?php echo $text_tax; ?> <?php echo $product['tax']; ?></span>
-          <?php } ?>
-        </p>
-        <?php } ?>
-      </div>
-      <div class="button-group">
-        <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span></button>
-        <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
-        <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
-      </div>
     </div>
-  </div>
-  <?php } ?>
 </div>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-8">
+        <table class="table table-bordered">
+            <tr>
+                <td class="text-right">
+                    <strong><?php echo $text_total; ?></strong>
+                </td>
+                <td class="text-right">
+                    <span id="totalPrice" class="total-price">
+                        0
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="buttons">
+    <div class="pull-right">
+        <button type="button" class="btn btn-primary btn-lg" onclick="updateProductToCart();">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="hidden-xs hidden-sm hidden-md"><?php echo $button_checkout; ?></span>
+        </button>
+    </div>
+</div>
+<script type="text/javascript"><!--
+    //將購物車上的商品訂購資訊還原到畫面上
+    function restoreProductQtyFromCart(productId, qty) {
+        var rows = $('table.products.table-bordered tbody tr');
+        for (var i = 0; i < rows.length; i++) {
+            var rowProductId = $($(rows[i]).find("td")[0]).data("id");
+//            console.log("rowProductId:" + rowProductId + ", productId:" + productId);
+            if (rowProductId == productId) {
+                $(rows[i]).find("#quantity").val(qty);
+                break;
+            }
+        }
+    }
+    //將所有商品的訂購數量更新到購物車上
+    function updateProductToCart() {
+        var rows = $('table.products.table-bordered tbody tr');
+//        for (var i = 0; i < rows.length; i++) {
+//            var productId = $($(rows[i]).find("td")[0]).data("id");
+//            cart.remove(productId);
+//        }
+        for (var i = 0; i < rows.length; i++) {
+            var productId = $($(rows[i]).find("td")[0]).data("id");
+            var qty = $(rows[i]).find("#quantity").val();
+            console.log("productId:[" + productId + "], qty:[" + qty + "]");
+            if (qty > 0)
+                cart.add(productId, qty);
+        }
+        setTimeout(function () {
+            document.location.href = "<?php echo $checkout; ?>";
+        }, 1000);
+    }
+    //計算每個產品的小計及總金額
+    function countTotalPrice() {
+        var rows = $('table.products.table-bordered tbody tr');
+        var totalPrice = 0;
+        for (var i = 0; i < rows.length; i++) {
+            var qty = $(rows[i]).find("#quantity").val();
+            var price = $(rows[i]).find("td.price")[0].innerText;
+            var subTotal = getSubTotal(qty, price);
+//            console.debug($($(rows[i]).find("td")[0]).data("id"));
+            $(rows[i]).find("td.subtotal")[0].innerText = subTotal;
+            totalPrice += subTotal;
+        }
+        console.log("TotalPrice:" + totalPrice);
+        $("#totalPrice").text(totalPrice);
+    }
+    //取得商品小計
+    function getSubTotal(qty, price) {
+        try {
+            return parseInt(Number(qty) * Number(price));
+        }
+        catch (e) {
+            console.error(e);
+            return 0;
+        }
+    }
+    //數量範圍、型態控制
+    $(document).delegate("#quantity", "blur", function () {
+        var min = Number($(this).attr('min'));
+        var max = Number($(this).attr('max'));
+        var quantity = parseInt($(this).val());
+//        console.debug('Qty:' + quantity + ', min:' + min + ', max:' + max + ', Qty > max:' + (quantity > max));
+        if (!quantity || quantity < 0) {
+            $(this).val(min);
+        }
+        else if (quantity > max) {
+            $(this).val(max);
+        }
+        else {
+            $(this).val(quantity);
+        }
+        countTotalPrice();
+    });
+
+    $(document).ready(function () {
+        var cart_products = JSON.parse('<?php echo json_encode($cart_products); ?>');
+//        console.log(cart_products);
+        for (var i = 0; i < cart_products.length; i++) {
+            var product = cart_products[i];
+//            console.log("product_id:" + product.product_id + ", qty:" + product.quantity);
+            restoreProductQtyFromCart(product.product_id, product.quantity);
+        }
+        countTotalPrice();
+    });
+//--></script>

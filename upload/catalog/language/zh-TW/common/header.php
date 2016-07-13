@@ -2,7 +2,7 @@
 // Text
 $_['text_home']    		 = '首頁';
 $_['text_wishlist'] 	 = '收藏清單（%s）';
-$_['text_shopping_cart'] = '購物車';
+$_['text_shopping_cart'] = '訂單';
 $_['text_category']      = '商品分類';
 $_['text_account']  	 = '會員中心';
 $_['text_register']      = '會員註冊';

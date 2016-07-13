@@ -3,7 +3,7 @@
 $_['heading_title']                  = '結帳';
 
 // Text
-$_['text_cart']                      = '購物車';
+$_['text_cart']                      = '訂單';
 $_['text_checkout_option']           = '第 1 步： 結帳選項';
 $_['text_checkout_account']          = '第 2 步： 帳號及帳單明細';
 $_['text_checkout_payment_address']  = '第 2 步： 帳單明細';

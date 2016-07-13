@@ -135,14 +135,12 @@
                             </div>
                             <div style="display: table;">
                                 <div class="input-group" style="width:130px; line-height: 38px;">
-                                    <span class="input-group-addon"
-                                          style="font-size: 14px; font-weight: 900;"><?php echo $text_qty; ?></span>
-                                    <input class="form-control" type="number" name="quantity" min="1" max="9999"
-                                           value="1" style="font-size: 15px; height: 40px;"/>
+                                    <span class="input-group-addon" style="font-size: 14px; font-weight: 900;"><?php echo $text_qty; ?></span>
+                                    <input class="form-control" type="number" id="quantity" min="1" max="999" value="1" style="font-size: 15px; height: 40px;"/>
                                 </div>
                                 <div class="button-group" style="display: table-cell; width: 100%;">
                                     <button type="button"
-                                            onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo is_int($_GET['quantity']) ? $_GET['quantity'] : $product['minimum']; ?>');">
+                                            onclick="cart.add('<?php echo $product['product_id']; ?>', $('#quantity').val());">
                                         <i class="fa fa-shopping-cart"></i> <span
                                                 class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span>
                                     </button>
@@ -173,3 +171,17 @@
         <?php echo $column_right; ?></div>
 </div>
 <?php echo $footer; ?>
+<script type="text/javascript"><!--
+    $(document).delegate("#quantity", "blur", function () {
+        var min = Number($('#quantity').attr('min'));
+        var max = Number($('#quantity').attr('max'));
+        var quantity = $('#quantity').val();
+        console.debug('Qty:' + quantity + ', min:' + min + ', max:' + max + ', Qty > max:' + (quantity > max));
+        if (!quantity || quantity < 1) {
+            $('#quantity').val(min);
+        }
+        else if (quantity > max) {
+            $('#quantity').val(max);
+        }
+    });
+//--></script>

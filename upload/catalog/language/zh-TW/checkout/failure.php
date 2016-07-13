@@ -3,7 +3,7 @@
 $_['heading_title'] = '付款失敗！';
 
 // Text
-$_['text_basket']   = '購物車';
+$_['text_basket']   = '訂單';
 $_['text_checkout'] = '結帳';
 $_['text_failure']  = '付款失敗';
 $_['text_message']  = '<p>付款時發生錯誤，訂單沒有完成。</p>

@@ -748,3 +748,9 @@ h2.price {
     background-image: none;
     background-color: #df5c39;
 }
+
+/* 自定義去 */
+.total-price {
+	display: block;
+	color: #d58512;
+}

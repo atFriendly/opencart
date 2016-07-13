@@ -57,8 +57,7 @@
                 <table>
                     <tr>
                         <td>
-                            <input class="form-control" type="number" id="quantity" min="1" max="999"
-                                   value="1" style="font-size: 15px; width:80px; height: 41px;"/>
+                            <input class="form-control" type="number" id="quantity" min="1" max="999" value="1" style="font-size: 15px; width:80px; height: 41px;"/>
                         </td>
                         <td width="100%">
                             <div class="button-group" style="white-space: nowrap;">
@@ -85,7 +84,7 @@
     <?php } ?>
 </div>
 <script type="text/javascript"><!--
-    $('#quantity').on("blur", function () {
+    $(document).delegate("#quantity", "blur", function () {
         var min = Number($('#quantity').attr('min'));
         var max = Number($('#quantity').attr('max'));
         var quantity = $('#quantity').val();
