@@ -39,7 +39,8 @@
                         <td class="text-center">
                             <?php if ($product['thumb']) { ?>
                             <a href="<?php echo $product['href']; ?>">
-                                <img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-thumbnail" />
+                                <img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>"
+                                     title="<?php echo $product['name']; ?>" class="img-thumbnail" style="padding: 0px; border: none;"/>
                             </a>
                             <?php } ?>
                         </td>
