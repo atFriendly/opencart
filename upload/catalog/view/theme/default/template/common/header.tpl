@@ -53,13 +53,12 @@
           <a style='font-size:36px;line-height:1;font-weight:bold;color:#363638;text-transform:uppercase;font-family:Microsoft YaHei;'  href="<?php echo $home; ?>"><?php echo $name; ?></a>
         <?php } ?>
       </div>
-    <?php if ($isFromLogin) {  ?>
-      <div class="col-sm-5" style="width:350px;float:right;padding-top:5px"><?php echo $search; ?></div>
+    <?php if ($logged) { ?>
+      <div class="col-sm-3" style=";float:right;padding-top:5px"><?php echo $search; ?></div>
     <?php } ?>
 
     <div id="top-links" class="nav pull-right" style="padding-top:7px;">
       <ul class="list-inline">
-        <!--<li><a href="<?php echo $contact; ?>"><i class="fa fa-phone"></i></a> <span class="hidden-xs hidden-sm hidden-md"><?php echo $telephone; ?></span></li>-->
         <li class="dropdown"><a href="<?php echo $account; ?>" title="<?php echo $text_account; ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $text_account; ?></span> <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-menu-right">
             <?php if ($logged) { ?>
@@ -73,9 +72,8 @@
             <?php } ?>
           </ul>
         </li>
-
         <!-- 客戶服務-->
-        <?php if ($isFromLogin) {  ?>
+        <?php if ($logged) { ?>
           <li class="dropdown"><a href="<?php echo $contact; ?>" title="<?php echo $text_service; ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $text_service; ?></span> <span class="caret"></span></a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a href="<?php echo $contactMe; ?>"><?php echo $text_contactMe; ?></a></li>
@@ -83,12 +81,6 @@
               <li><a href="<?php echo $sitemap; ?>"><?php echo $text_sitemap; ?></a></li>
             </ul>
           </li>
-        <?php } ?>
-
-        <!--
-        <li><a href="<?php echo $wishlist; ?>" id="wishlist-total" title="<?php echo $text_wishlist; ?>"><i class="fa fa-heart"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $text_wishlist; ?></span></a></li>
-        -->
-        <?php if ($isFromLogin) {  ?>
           <li><a href="<?php echo $shopping_cart; ?>" title="<?php echo $text_shopping_cart; ?>"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $text_shopping_cart; ?></span></a></li>
           <li><a href="<?php echo $checkout; ?>" title="<?php echo $text_checkout; ?>"><i class="fa fa-share"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $text_checkout; ?></span></a></li>
         <?php } ?>
