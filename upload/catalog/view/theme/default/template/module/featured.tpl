@@ -36,7 +36,7 @@
                         <td class="row-number text-right ">
                             <?php echo $row_index; ?>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" style="padding: 0px;">
                             <?php if ($product['thumb']) { ?>
                             <a href="<?php echo $product['href']; ?>">
                                 <img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>"
