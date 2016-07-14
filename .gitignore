@@ -5,10 +5,12 @@
 
 # Image File
 !/upload/image/no_image.jpg
+!/upload/image/placeholder.png
 
 # Image Cache Files
+/upload/image/flags/*
 /upload/image/cache/*
-!/upload/image/cache/index.html
+!/upload/image/catalog/*
 
 # System Cache Files
 /upload/system/storage/cache/*
@@ -54,9 +56,7 @@
 /.idea
 .idea
 
-#image
-/upload/image/*
-!/upload/image/catalog/*
+
 
 #conf
 /conf/
