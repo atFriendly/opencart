@@ -55,7 +55,7 @@
 .idea
 
 #image
-/upload/image/
+/upload/image/*
 !/upload/image/catalog/*
 
 #conf
