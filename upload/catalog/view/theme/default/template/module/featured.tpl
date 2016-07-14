@@ -154,7 +154,8 @@
     //取得商品小計
     function getSubTotal(qty, price) {
         try {
-            return parseInt(Number(qty) * Number(price.replace(/,/gi, '')));
+            console.log("price:" + price.replace(/\$/gi, '').replace(/,/gi, ''));
+            return parseInt(Number(qty) * Number(price.replace(/\$/gi, '').replace(/,/gi, '')));
         }
         catch (e) {
             console.error("取商品小計發生錯誤！\n" + e);
