@@ -751,8 +751,16 @@ h2.price {
     background-color: #df5c39;
 }
 
-/* 自定義去 */
+/* 自定義區塊 */
+/* 訂單總計-金額 */
 .total-price {
 	display: block;
 	color: #d58512;
+}
+/* 浮動按鈕 */
+.flow-buttons {
+	position: fixed;
+	top: 93px;
+	right: 10px;
+	z-index: 1;
 }

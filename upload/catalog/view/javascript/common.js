@@ -226,6 +226,46 @@ var cart = {
 			}
 		});
 	},
+	'addAll': function(orders, callback) {
+		$.ajax({
+			url: 'index.php?route=checkout/cart/addAll',
+			type: 'post',
+			data: 'orders=' + orders,
+			dataType: 'json',
+			beforeSend: function() {
+				$('#cart > button').button('loading');
+			},
+			complete: function() {
+				$('#cart > button').button('reset');
+			},
+			success: function(json) {
+				$('.alert, .text-danger').remove();
+
+				if (json['redirect']) {
+					location = json['redirect'];
+				}
+
+				if (json['success']) {
+					$('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+					// Need to set timeout otherwise it wont update the total
+					setTimeout(function () {
+						$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+					}, 100);
+
+					//不要捲動到最上方
+					//$('html, body').animate({ scrollTop: 0 }, 'slow');
+
+					$('#cart > ul').load('index.php?route=common/cart/info ul li');
+					callback(true);
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				callback(false);
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	},
 	'removeAll': function(callback) {
 		$.ajax({
 			url: 'index.php?route=checkout/cart/removeAll',

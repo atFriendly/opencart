@@ -3,6 +3,14 @@
     <?php echo $heading_title; ?>
 </h3>
 -->
+<!--
+<div id="flow-buttons" class="flow-buttons" >
+    <button type="button" class="btn btn-primary btn-lg" onclick="updateProductToCart();">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="hidden-xs hidden-sm"><?php echo $button_checkout; ?></span>
+    </button>
+</div>
+-->
 <div class="row">
     <div class="col-sm-12">
         <div class="table-responsive">
@@ -82,7 +90,7 @@
     <div class="pull-right">
         <button type="button" class="btn btn-primary btn-lg" onclick="updateProductToCart();">
             <i class="fa fa-shopping-cart"></i>
-            <span class="hidden-xs hidden-sm hidden-md"><?php echo $button_checkout; ?></span>
+            <span class="hidden-xs hidden-sm"><?php echo $button_checkout; ?></span>
         </button>
     </div>
 </div>
@@ -102,25 +110,31 @@
     //將所有商品的訂購數量更新到購物車上
     function updateProductToCart() {
         var rows = $('table.products.table-bordered tbody tr');
-//        for (var i = 0; i < rows.length; i++) {
-//            var productId = $($(rows[i]).find("td")[0]).data("id");
-//            cart.remove(productId);
-//        }
+        //先移除之前購物車的內容
         cart.removeAll(function (success) {
-            //alert(success);
+            //將畫面上的訂購內容加到購物車
+            var orders = [];
             for (var i = 0; i < rows.length; i++) {
                 var productId = $($(rows[i]).find("td.model")[0]).data("id");
                 var productName = $(rows[i]).find("td.name")[0].innerText;
                 var qty = $(rows[i]).find("#quantity").val();
                 if (qty > 0) {
-                    console.log("訂購產品:[" + productName + "], id:[" + productId + "], 數量:[" + qty + "]");
-                    cart.add(productId, qty);
+//                    console.log("訂購產品:[" + productName + "], id:[" + productId + "], 數量:[" + qty + "]");
+//                    cart.add(productId, qty);
+                    var order = {
+                        "product_id": productId,
+                        "quantity": qty
+                    };
+                    orders.push(order);
                 }
             }
-
-//            setTimeout(function () {
-//                document.location.href = "<?php echo $checkout; ?>";
-//            }, 1000);
+            console.log("訂購商品資訊:" + JSON.stringify(orders));
+            if (orders.length > 0) {
+                cart.addAll(JSON.stringify(orders), function () {
+                    //訂購callback再轉址到結帳頁面
+                    document.location.href = "<?php echo $checkout; ?>";
+                });
+            }
         });
     }
     //計算每個產品的小計及總金額
@@ -131,7 +145,6 @@
             var qty = $(rows[i]).find("#quantity").val();
             var price = $(rows[i]).find("td.price")[0].innerText;
             var subTotal = getSubTotal(qty, price);
-//            console.debug($($(rows[i]).find("td")[0]).data("id"));
             $(rows[i]).find("td.subtotal")[0].innerText = subTotal;
             totalPrice += subTotal;
         }
@@ -153,7 +166,6 @@
         var min = Number($(this).attr('min'));
         var max = Number($(this).attr('max'));
         var quantity = parseInt($(this).val());
-//        console.debug('Qty:' + quantity + ', min:' + min + ', max:' + max + ', Qty > max:' + (quantity > max));
         if (!quantity || quantity < 0) {
             $(this).val(min);
         }
@@ -167,13 +179,24 @@
     });
 
     $(document).ready(function () {
+        /*
+        $(document).bind("scroll resize", function () {
+            var _this = $(this);
+            var _this_top = _this.scrollTop();
+
+            if (_this_top < 100) {
+                $('#flow-buttons').stop().animate({top: "93px"});
+            }
+            if (_this_top > 100) {
+                $('#flow-buttons').stop().animate({top: "10px"});
+            }
+        }).scroll();
+        */
         console.log('總產品數量:' + '<?php echo count($products); ?>');
 
         var cart_products = JSON.parse('<?php echo json_encode($cart_products); ?>');
-//        console.log(cart_products.length);
         for (var i = 0; i < cart_products.length; i++) {
             var product = cart_products[i];
-//            console.log("product_id:" + product.product_id + ", qty:" + product.quantity);
             restoreProductQtyFromCart(product.product_id, product.quantity);
         }
         countTotalPrice();
