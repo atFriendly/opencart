@@ -112,8 +112,8 @@ class ControllerCheckoutPaymentAddress extends Controller {
 
 					$this->session->data['payment_address'] = $this->model_account_address->getAddress($this->request->post['address_id']);
 
-					unset($this->session->data['payment_method']);
-					unset($this->session->data['payment_methods']);
+//					unset($this->session->data['payment_method']);
+//					unset($this->session->data['payment_methods']);
 				}
 			} else {
 				if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
@@ -169,8 +169,8 @@ class ControllerCheckoutPaymentAddress extends Controller {
 
 					$this->session->data['payment_address'] = $this->model_account_address->getAddress($address_id);
 
-					unset($this->session->data['payment_method']);
-					unset($this->session->data['payment_methods']);
+//					unset($this->session->data['payment_method']);
+//					unset($this->session->data['payment_methods']);
 
 					$this->load->model('account/activity');
 

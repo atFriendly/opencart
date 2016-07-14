@@ -4,13 +4,20 @@ $_['heading_title']                  = '結帳';
 
 // Text
 $_['text_cart']                      = '訂單';
-$_['text_checkout_option']           = '第 1 步： 結帳選項';
-$_['text_checkout_account']          = '第 2 步： 帳號及帳單明細';
-$_['text_checkout_payment_address']  = '第 2 步： 帳單明細';
-$_['text_checkout_shipping_address'] = '第 3 步： 運送地址';
-$_['text_checkout_shipping_method']  = '第 4 步： 運送方式';
-$_['text_checkout_payment_method']   = '第 5 步： 支付方式';
-$_['text_checkout_confirm']          = '第 6 步： 確認訂單';
+//$_['text_checkout_option']           = '第 1 步： 結帳選項';
+//$_['text_checkout_account']          = '第 2 步： 帳號及帳單明細';
+//$_['text_checkout_payment_address']  = '第 2 步： 帳單明細';
+//$_['text_checkout_shipping_address'] = '第 3 步： 運送地址';
+//$_['text_checkout_shipping_method']  = '第 4 步： 運送方式';
+//$_['text_checkout_payment_method']   = '第 5 步： 支付方式';
+//$_['text_checkout_confirm']          = '第 6 步： 確認訂單';
+$_['text_checkout_option']           = '結帳選項';
+$_['text_checkout_account']          = '帳號及帳單明細';
+$_['text_checkout_payment_address']  = '帳單明細';
+$_['text_checkout_shipping_address'] = '運送地址';
+$_['text_checkout_shipping_method']  = '運送方式';
+$_['text_checkout_payment_method']   = '支付方式';
+$_['text_checkout_confirm']          = '確認訂單';
 $_['text_modify']                    = '更新 &raquo;';
 $_['text_new_customer']              = '新客戶';
 $_['text_returning_customer']        = '已有帳號';

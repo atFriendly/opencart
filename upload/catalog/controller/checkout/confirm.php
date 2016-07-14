@@ -3,6 +3,8 @@ class ControllerCheckoutConfirm extends Controller {
 	public function index() {
 		$redirect = '';
 
+		$this->setDefaultValue();
+
 		if ($this->cart->hasShipping()) {
 			// Validate if shipping address has been set.
 			if (!isset($this->session->data['shipping_address'])) {
@@ -422,5 +424,108 @@ class ControllerCheckoutConfirm extends Controller {
 		}
 
 		$this->response->setOutput($this->load->view('checkout/confirm', $data));
+	}
+
+	private function setDefaultValue() {
+		// shipping and payment address
+		$this->load->model('account/address');
+
+		if (isset($this->session->data['payment_address']['address_id'])) {
+			$addressId = $this->session->data['payment_address']['address_id'];
+		} else {
+			$addressId = $this->customer->getAddressId();
+		}
+
+		// add by fish => 帳單地址
+		if (!isset($this->session->data['payment_address'])) {
+			$this->session->data['payment_address'] = $this->model_account_address->getAddress($addressId);
+		}
+		// add by fish => 運送地址
+		if (!isset($this->session->data['shipping_address'])) {
+			$this->session->data['shipping_address'] = $this->model_account_address->getAddress($addressId);
+		}
+
+		// shipping method
+		if (!isset($this->session->data['shipping_method'])) {
+			$method_data = array();
+			$this->load->model('extension/extension');
+			$results = $this->model_extension_extension->getExtensions('shipping');
+
+			foreach ($results as $result) {
+				if ($this->config->get($result['code'] . '_status')) {
+					$this->load->model('shipping/' . $result['code']);
+					$quote = $this->{'model_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
+					if ($quote) {
+						$method_data[$result['code']] = array(
+							'title'      => $quote['title'],
+							'quote'      => $quote['quote'],
+							'sort_order' => $quote['sort_order'],
+							'error'      => $quote['error']
+						);
+					}
+				}
+			}
+			// add by fish => 運送方式預設值
+			$this->session->data['shipping_method'] = $method_data["free"]['quote']["free"];
+			$this->session->data['comment'] = "";
+		}
+
+		// payment method
+		if (!isset($this->session->data['payment_method'])) {
+			$totals = array();
+			$taxes = $this->cart->getTaxes();
+			$total = 0;
+
+			// Because __call can not keep var references so we put them into an array.
+			$total_data = array(
+				'totals' => &$totals,
+				'taxes'  => &$taxes,
+				'total'  => &$total
+			);
+
+			$this->load->model('extension/extension');
+			$sort_order = array();
+			$results = $this->model_extension_extension->getExtensions('total');
+
+			foreach ($results as $key => $value) {
+				$sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
+			}
+			array_multisort($sort_order, SORT_ASC, $results);
+
+			foreach ($results as $result) {
+				if ($this->config->get($result['code'] . '_status')) {
+					$this->load->model('total/' . $result['code']);
+
+					// We have to put the totals in an array so that they pass by reference.
+					$this->{'model_total_' . $result['code']}->getTotal($total_data);
+				}
+			}
+			$method_data = array();
+			$this->load->model('extension/extension');
+			$results = $this->model_extension_extension->getExtensions('payment');
+			$recurring = $this->cart->hasRecurringProducts();
+
+			foreach ($results as $result) {
+				if ($this->config->get($result['code'] . '_status')) {
+					$this->load->model('payment/' . $result['code']);
+					$method = $this->{'model_payment_' . $result['code']}->getMethod($this->session->data['payment_address'], $total);
+
+					if ($method) {
+						if ($recurring) {
+							if (property_exists($this->{'model_payment_' . $result['code']}, 'recurringPayments') && $this->{'model_payment_' . $result['code']}->recurringPayments()) {
+								$method_data[$result['code']] = $method;
+							}
+						} else {
+							$method_data[$result['code']] = $method;
+						}
+
+						// add by fish => 運送方式預設值
+						if ($result['code'] == "bank_transfer") {
+							$this->session->data['payment_method'] = $method;
+						}
+					}
+				}
+			}
+		}
 	}
 }

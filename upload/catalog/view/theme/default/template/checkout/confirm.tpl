@@ -3,8 +3,8 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <td class="text-left"><?php echo $column_name; ?></td>
         <td class="text-left"><?php echo $column_model; ?></td>
+        <td class="text-left"><?php echo $column_name; ?></td>
         <td class="text-right"><?php echo $column_quantity; ?></td>
         <td class="text-right"><?php echo $column_price; ?></td>
         <td class="text-right"><?php echo $column_total; ?></td>
@@ -13,6 +13,7 @@
     <tbody>
       <?php foreach ($products as $product) { ?>
       <tr>
+        <td class="text-left"><?php echo $product['model']; ?></td>
         <td class="text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
           <?php foreach ($product['option'] as $option) { ?>
           <br />
@@ -22,7 +23,6 @@
           <br />
           <span class="label label-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring']; ?></small>
           <?php } ?></td>
-        <td class="text-left"><?php echo $product['model']; ?></td>
         <td class="text-right"><?php echo $product['quantity']; ?></td>
         <td class="text-right"><?php echo $product['price']; ?></td>
         <td class="text-right"><?php echo $product['total']; ?></td>
