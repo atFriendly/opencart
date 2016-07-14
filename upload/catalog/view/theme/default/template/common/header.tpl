@@ -74,7 +74,7 @@
         </li>
         <!-- 客戶服務-->
         <?php if ($logged) { ?>
-          <li class="dropdown"><a href="<?php echo $contact; ?>" title="<?php echo $text_service; ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $text_service; ?></span> <span class="caret"></span></a>
+          <li class="dropdown"><a href="<?php echo $contact; ?>" title="<?php echo $text_service; ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info"  ></i> <span class="hidden-xs hidden-sm hidden-md"><?php echo $text_service; ?></span> <span class="caret"></span></a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a href="<?php echo $contactMe; ?>"><?php echo $text_contactMe; ?></a></li>
               <li><a href="<?php echo $return; ?>"><?php echo $text_return; ?></a></li>
