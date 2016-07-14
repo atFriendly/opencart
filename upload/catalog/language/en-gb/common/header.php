@@ -14,3 +14,7 @@ $_['text_logout']        = 'Logout';
 $_['text_checkout']      = 'Checkout';
 $_['text_search']        = 'Search';
 $_['text_all']           = 'Show All';
+$_['text_service']       = 'Service';
+$_['text_contact']       = 'Contact us';
+$_['text_return']        = 'Return Service';
+$_['text_sitemap']       = 'Sitemap';

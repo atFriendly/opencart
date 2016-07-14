@@ -69,6 +69,10 @@ class ControllerCommonHeader extends Controller {
 		$data['text_checkout'] = $this->language->get('text_checkout');
 		$data['text_category'] = $this->language->get('text_category');
 		$data['text_all'] = $this->language->get('text_all');
+		$data['text_service'] = $this->language->get('text_service');
+		$data['text_contactMe'] = $this->language->get('text_contact');
+		$data['text_return'] = $this->language->get('text_return');
+		$data['text_sitemap'] = $this->language->get('text_sitemap');
 
 		$data['home'] = $this->url->link('common/home');
 		$data['wishlist'] = $this->url->link('account/wishlist', '', true);
@@ -84,6 +88,9 @@ class ControllerCommonHeader extends Controller {
 		$data['checkout'] = $this->url->link('checkout/checkout', '', true);
 		$data['contact'] = $this->url->link('information/contact');
 		$data['telephone'] = $this->config->get('config_telephone');
+		$data['contactMe'] = $this->url->link('information/contact');
+		$data['return'] = $this->url->link('account/return/add', '', true);
+		$data['sitemap'] = $this->url->link('information/sitemap');
 
 		// Menu
 		$this->load->model('catalog/category');

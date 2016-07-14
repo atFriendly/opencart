@@ -14,3 +14,7 @@ $_['text_logout']        = '會員登出';
 $_['text_checkout'] 	 = '結帳';
 $_['text_search']   	 = '搜尋';
 $_['text_all']           = '顯示全部';
+$_['text_service']       = '客戶服務';
+$_['text_contact']       = '聯絡我們';
+$_['text_return']        = '退換服務';
+$_['text_sitemap']       = '網站地圖';

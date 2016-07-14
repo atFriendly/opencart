@@ -105,6 +105,7 @@ div.required .control-label:before {
 	color: #888;
 	text-shadow: 0 1px 0 #FFF;
 	text-decoration: none;
+	padding-top: 11px;
 }
 #top .btn-link:hover, #top-links a:hover {
 	color: #444;
@@ -131,7 +132,8 @@ div.required .control-label:before {
 }
 /* search */
 #search {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
 #search .input-lg {
 	height: 40px;
@@ -312,8 +314,8 @@ div.required .control-label:before {
 }
 /* footer */
 footer {
-	margin-top: 30px;
-	padding-top: 30px;
+	margin-top: 8%;
+	padding-top: 10px;
 	background-color: #303030;
 	border-top: 1px solid #ddd;
 	color: #e2e2e2;
