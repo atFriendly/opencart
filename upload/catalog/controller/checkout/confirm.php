@@ -338,6 +338,7 @@ class ControllerCheckoutConfirm extends Controller {
 
 			$data['products'] = array();
 
+            $seq = 1;
 			foreach ($this->cart->getProducts() as $product) {
 				$option_data = array();
 
@@ -393,8 +394,10 @@ class ControllerCheckoutConfirm extends Controller {
 					'subtract'   => $product['subtract'],
 					'price'      => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
 					'total'      => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'], $this->session->data['currency']),
-					'href'       => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+					'href'       => $this->url->link('product/product', 'product_id=' . $product['product_id']),
+                    'seq'        => $seq
 				);
+                $seq++;
 			}
 
 			// Gift Voucher

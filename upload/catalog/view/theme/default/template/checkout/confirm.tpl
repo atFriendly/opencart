@@ -3,6 +3,7 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
+        <td class="text-right">No.</td>
         <td class="text-left"><?php echo $column_model; ?></td>
         <td class="text-left"><?php echo $column_name; ?></td>
         <td class="text-right"><?php echo $column_quantity; ?></td>
@@ -13,6 +14,7 @@
     <tbody>
       <?php foreach ($products as $product) { ?>
       <tr>
+        <td class="text-right"><?php echo $product['seq']; ?></td>
         <td class="text-left"><?php echo $product['model']; ?></td>
         <td class="text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
           <?php foreach ($product['option'] as $option) { ?>
@@ -32,6 +34,7 @@
       <tr>
         <td class="text-left"><?php echo $voucher['description']; ?></td>
         <td class="text-left"></td>
+        <td class="text-left"></td>
         <td class="text-right">1</td>
         <td class="text-right"><?php echo $voucher['amount']; ?></td>
         <td class="text-right"><?php echo $voucher['amount']; ?></td>
@@ -41,7 +44,7 @@
     <tfoot>
       <?php foreach ($totals as $total) { ?>
       <tr>
-        <td colspan="4" class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
+        <td colspan="5" class="text-right"><strong><?php echo $total['title']; ?>:</strong></td>
         <td class="text-right"><?php echo $total['text']; ?></td>
       </tr>
       <?php } ?>
