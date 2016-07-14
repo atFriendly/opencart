@@ -393,6 +393,60 @@ class ModelSaleOrder extends Model {
 		return $query->row['total'];
 	}
 
+    public function getTotalOrdersTest($data = array(), $type) {
+        $sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order`";
+
+        if (isset($data['filter_order_status'])) {
+            $implode = array();
+
+            $order_statuses = explode(',', $data['filter_order_status']);
+
+            foreach ($order_statuses as $order_status_id) {
+                $implode[] = "order_status_id = '" . (int)$order_status_id . "'";
+            }
+
+            if ($implode) {
+                $sql .= " WHERE (" . implode(" OR ", $implode) . ")";
+            }
+        } else {
+            $sql .= " WHERE order_status_id > '0'";
+        }
+
+        if (!empty($data['filter_order_id'])) {
+            $sql .= " AND order_id = '" . (int)$data['filter_order_id'] . "'";
+        }
+
+        if (!empty($data['filter_customer'])) {
+            $sql .= " AND CONCAT(firstname, ' ', lastname) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+        }
+
+        if (!empty($data['filter_date_added'])) {
+            $sql .= " AND DATE(date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+        }
+
+        if (!empty($data['filter_date_modified'])) {
+            $sql .= " AND DATE(date_modified) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
+        }
+
+        if (!empty($data['filter_total'])) {
+            $sql .= " AND total = '" . (float)$data['filter_total'] . "'";
+        }
+
+        if($type == 1){
+            $sql .= " AND customer_id IN (9,10,11) ";
+        }else if($type == 2){
+            $sql .= " AND customer_id IN (12,13) ";
+        }else if($type == 3){
+
+        }else{
+            $sql .= " AND customer_id IN (99999) ";
+        }
+
+        $query = $this->db->query($sql);
+
+        return $query->row['total'];
+    }
+
 	public function getTotalOrdersByStoreId($store_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE store_id = '" . (int)$store_id . "'");
 
@@ -485,11 +539,56 @@ class ModelSaleOrder extends Model {
 		return $query->rows;
 	}
 
+    public function getOrderHistoriesTest($order_id, $start = 0, $limit = 10, $type) {
+        if ($start < 0) {
+            $start = 0;
+        }
+
+        if ($limit < 1) {
+            $limit = 10;
+        }
+
+        if($type == 1){
+            $sql = "SELECT oh.date_added, os.name AS status, oh.comment, oh.notify FROM " . DB_PREFIX . "order_history oh LEFT JOIN " . DB_PREFIX . "order_status os ON oh.order_status_id = os.order_status_id WHERE oh.order_id = '" . (int)$order_id . "' AND os.language_id = '" . " AND (SELECT customer_Id FROM ".  DB_PREFIX . "order od WHERE od.order_id = oh.order_id) IN (9,10,11) ". (int)$this->config->get('config_language_id') ;
+        }else if($type == 2){
+            $sql = "SELECT oh.date_added, os.name AS status, oh.comment, oh.notify FROM " . DB_PREFIX . "order_history oh LEFT JOIN " . DB_PREFIX . "order_status os ON oh.order_status_id = os.order_status_id WHERE oh.order_id = '" . (int)$order_id . "' AND os.language_id = '" . " AND (SELECT customer_Id FROM ".  DB_PREFIX . "order od WHERE od.order_id = oh.order_id) IN (12.13) ". (int)$this->config->get('config_language_id') ;
+        }else if($type == 3){
+
+        }else{
+            $sql = "SELECT oh.date_added, os.name AS status, oh.comment, oh.notify FROM " . DB_PREFIX . "order_history oh LEFT JOIN " . DB_PREFIX . "order_status os ON oh.order_status_id = os.order_status_id WHERE oh.order_id = '" . (int)$order_id . "' AND os.language_id = '" . " AND (SELECT customer_Id FROM ".  DB_PREFIX . "order od WHERE od.order_id = oh.order_id) IN (99999) ".  (int)$this->config->get('config_language_id') ;
+
+        }
+
+        $sql .= "' ORDER BY oh.date_added DESC LIMIT " . (int)$start . "," . (int)$limit ;
+
+        $query = $this->db->query($sql);
+
+        return $query->rows;
+    }
+
 	public function getTotalOrderHistories($order_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "order_history WHERE order_id = '" . (int)$order_id . "'");
 
 		return $query->row['total'];
 	}
+
+    public function getTotalOrderHistoriesTest($order_id, $type) {
+        $sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "order_history oh WHERE order_id = '" . (int)$order_id . "'";
+
+        if($type == 1){
+            $sql .=  " AND (SELECT customer_Id FROM ".  DB_PREFIX . "order od WHERE od.order_id = oh.order_id) IN (9,10,11) ";
+        }else if($type == 2){
+            $sql .=  " AND (SELECT customer_Id FROM ".  DB_PREFIX . "order od WHERE od.order_id = oh.order_id) IN (12,13) ";
+        }else if($type == 3){
+
+        }else{
+            $sql .=  " AND (SELECT customer_Id FROM ".  DB_PREFIX . "order od WHERE od.order_id = oh.order_id) IN (99999) ";
+        }
+
+        $query = $this->db->query($sql);
+
+        return $query->row['total'];
+    }
 
 	public function getTotalOrderHistoriesByOrderStatusId($order_status_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "order_history WHERE order_status_id = '" . (int)$order_status_id . "'");

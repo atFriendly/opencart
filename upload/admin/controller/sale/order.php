@@ -156,22 +156,24 @@ class ControllerSaleOrder extends Controller {
 			'limit'                => $this->config->get('config_limit_admin')
 		);
 
-		$order_total = $this->model_sale_order->getTotalOrders($filter_data);
 
 		//pablo 先寫固定的
 		$this->load->model('user/user');
 		$userId = $this->user->getId();
 		if($userId == 4){
 			$results = $this->model_sale_order->getOrdersTest($filter_data, 1);
+            $order_total = $this->model_sale_order->getTotalOrdersTest($filter_data, 1);
 		}else if($userId == 5){
 			$results = $this->model_sale_order->getOrdersTest($filter_data, 2);
+            $order_total = $this->model_sale_order->getTotalOrdersTest($filter_data, 2);
 		}else if($userId == 1){
 			$results = $this->model_sale_order->getOrders($filter_data);
+            $order_total = $this->model_sale_order->getTotalOrders($filter_data);
 		}else{
 			$results = $this->model_sale_order->getOrdersTest($filter_data, 3);
+            $order_total = $this->model_sale_order->getTotalOrdersTest($filter_data, 3);
 		}
-		
-		
+//      $order_total = $this->model_sale_order->getTotalOrders($filter_data);
 //		$results = $this->model_sale_order->getOrders($filter_data);
 
 		foreach ($results as $result) {
@@ -1484,7 +1486,20 @@ class ControllerSaleOrder extends Controller {
 
 		$this->load->model('sale/order');
 
-		$results = $this->model_sale_order->getOrderHistories($this->request->get['order_id'], ($page - 1) * 10, 10);
+        //pablo 先寫固定的
+//        $this->load->model('user/user');
+//        $userId = $this->user->getId();
+//        if($userId == 4){
+//            $results = $this->model_sale_order->getOrderHistoriesTest($this->request->get['order_id'], ($page - 1) * 10, 10, 1);
+//        }else if($userId == 5){
+//            $results = $this->model_sale_order->getOrderHistoriesTest($this->request->get['order_id'], ($page - 1) * 10, 10, 2);
+//        }else if($userId == 1){
+//            $results = $this->model_sale_order->getOrderHistories($this->request->get['order_id'], ($page - 1) * 10, 10);
+//        }else{
+//            $results = $this->model_sale_order->getOrderHistoriesTest($this->request->get['order_id'], ($page - 1) * 10, 10, 3);
+//        }
+
+		$results = $this->model_sale_order->getOrderHistoriesTest($this->request->get['order_id'], ($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
 			$data['histories'][] = array(
@@ -1494,6 +1509,17 @@ class ControllerSaleOrder extends Controller {
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
 			);
 		}
+
+        //pablo 先寫固定的
+//        if($userId == 4){
+//            $history_total = $this->model_sale_order->getTotalOrderHistoriesTest($this->request->get['order_id'], 1);
+//        }else if($userId == 5){
+//            $history_total = $this->model_sale_order->getTotalOrderHistoriesTest($this->request->get['order_id'], 2);
+//        }else if($userId == 1){
+//            $history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get['order_id']);
+//        }else{
+//            $history_total = $this->model_sale_order->getTotalOrderHistoriesTest($this->request->get['order_id'], 3);
+//        }
 
 		$history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get['order_id']);
 
