@@ -17,13 +17,13 @@
             <table class="products table table-bordered">
                 <thead>
                     <tr>
-                        <td class="text-right"><?php echo "$text_sn" ?></td>
+                        <td class="text-center"><?php echo "$text_sn" ?></td>
                         <td class="text-center"><?php echo $text_image; ?></td>
-                        <td class="text-left"><?php echo $text_model; ?></td>
-                        <td class="text-left"><?php echo $text_name; ?></td>
-                        <td class="text-right"><?php echo $text_price; ?></td>
-                        <td class="text-right"><?php echo $text_quantity; ?></td>
-                        <td class="text-right"><?php echo $text_sub_total; ?></td>
+                        <td class="text-center"><?php echo $text_model; ?></td>
+                        <td class="text-center"><?php echo $text_name; ?></td>
+                        <td class="text-center"><?php echo $text_price; ?></td>
+                        <td class="text-center"><?php echo $text_quantity; ?></td>
+                        <td class="text-center"><?php echo $text_sub_total; ?></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +33,7 @@
                             $row_index++;
                     ?>
                     <tr>
-                        <td class="row-number text-right">
+                        <td class="row-number text-right ">
                             <?php echo $row_index; ?>
                         </td>
                         <td class="text-center">
