@@ -141,7 +141,7 @@
                                     <input class="form-control" type="number" id="quantity" min="1" max="999" value="1" style="font-size: 15px; height: 40px;"/>
                                 </div>
                                 <div class="button-group" style="display: table-cell; width: 100%;">
-                                    <button type="button"
+                                    <button type="button" style="white-space: nowrap; width: 100%;"
                                             onclick="cart.add('<?php echo $product['product_id']; ?>', $('#quantity').val());">
                                         <i class="fa fa-shopping-cart"></i> <span
                                                 class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span>

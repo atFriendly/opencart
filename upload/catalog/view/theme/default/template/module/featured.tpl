@@ -163,7 +163,7 @@
         }
     }
     //數量範圍、型態控制
-    $(document).delegate("#quantity", "blur", function () {
+    $(document).delegate("#quantity", "change", function () {
         var min = Number($(this).attr('min'));
         var max = Number($(this).attr('max'));
         var quantity = parseInt($(this).val());
