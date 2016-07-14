@@ -3,7 +3,7 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <td class="text-right">No.</td>
+        <td class="text-right"><?php echo $column_sn; ?></td>
         <td class="text-left"><?php echo $column_model; ?></td>
         <td class="text-left"><?php echo $column_name; ?></td>
         <td class="text-right"><?php echo $column_quantity; ?></td>

@@ -520,7 +520,7 @@ class ControllerCheckoutCart extends Controller {
 			$product_info = $this->model_catalog_product->getProduct($product_id);
 			
 			if ($product_info) {
-				if (!isset($quantity) || ((int)$quantity >= $product_info['minimum'])) {
+				if (!isset($quantity) || ((int)$quantity < $product_info['minimum'])) {
 					$quantity = $product_info['minimum'] ? $product_info['minimum'] : 1;
 				}
 				

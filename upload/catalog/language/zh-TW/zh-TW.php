@@ -19,6 +19,7 @@ $_['text_all_zones']        = '所有地區';
 $_['text_pagination']       = '顯示 %d - %d / %d (共 %d 頁)';
 $_['text_loading']          = '載入中...';
 $_['text_no_results']       = '查無符合資料!';
+$_['text_sn']               = '序號';
 
 // Buttons
 $_['button_address_add']    = '新增地址';

@@ -17,7 +17,8 @@
             <table class="products table table-bordered">
                 <thead>
                     <tr>
-                        <td class="text-right"><?php echo "No." ?></td>
+                        <td class="text-right"><?php echo "$text_sn" ?></td>
+                        <td class="text-center"><?php echo $text_image; ?></td>
                         <td class="text-left"><?php echo $text_model; ?></td>
                         <td class="text-left"><?php echo $text_name; ?></td>
                         <td class="text-right"><?php echo $text_price; ?></td>
@@ -34,6 +35,13 @@
                     <tr>
                         <td class="row-number text-right">
                             <?php echo $row_index; ?>
+                        </td>
+                        <td class="text-center">
+                            <?php if ($product['thumb']) { ?>
+                            <a href="<?php echo $product['href']; ?>">
+                                <img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-thumbnail" />
+                            </a>
+                            <?php } ?>
                         </td>
                         <td class="model text-left" data-id="<?php echo $product['product_id']; ?>">
                             <span class="model">
@@ -154,7 +162,7 @@
     //取得商品小計
     function getSubTotal(qty, price) {
         try {
-            console.log("price:" + price.replace(/\$/gi, '').replace(/,/gi, ''));
+//            console.log("price:" + price.replace(/\$/gi, '').replace(/,/gi, ''));
             return parseInt(Number(qty) * Number(price.replace(/\$/gi, '').replace(/,/gi, '')));
         }
         catch (e) {

@@ -7,8 +7,10 @@ class ControllerModuleFeatured extends Controller {
 		$this->load->language('checkout/cart');
 
 		$data['heading_title'] = $this->language->get('heading_title');
-
+		
+		$data['text_sn'] = $this->language->get('text_sn');
 		$data['text_tax'] = $this->language->get('text_tax');
+		$data['text_image'] = $this->language->get('column_image');
 		$data['text_name'] = $this->language->get('column_name');
 		$data['text_model'] = $this->language->get('column_model');
 		$data['text_quantity'] = $this->language->get('column_quantity');

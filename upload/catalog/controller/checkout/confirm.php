@@ -101,6 +101,7 @@ class ControllerCheckoutConfirm extends Controller {
 			$order_data['totals'] = $totals;
 
 			$this->load->language('checkout/checkout');
+			$this->load->language('total/total');
 
 			$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
 			$order_data['store_id'] = $this->config->get('config_store_id');
@@ -324,10 +325,11 @@ class ControllerCheckoutConfirm extends Controller {
 			$this->load->model('checkout/order');
 
 			$this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
-
+			
 			$data['text_recurring_item'] = $this->language->get('text_recurring_item');
 			$data['text_payment_recurring'] = $this->language->get('text_payment_recurring');
-
+			
+			$data['column_sn'] = $this->language->get('text_sn');
 			$data['column_name'] = $this->language->get('column_name');
 			$data['column_model'] = $this->language->get('column_model');
 			$data['column_quantity'] = $this->language->get('column_quantity');
