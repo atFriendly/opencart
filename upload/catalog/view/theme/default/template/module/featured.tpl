@@ -9,25 +9,33 @@
             <table class="products table table-bordered">
                 <thead>
                     <tr>
-                        <td class="text-left"><?php echo $text_name; ?></td>
+                        <td class="text-right"><?php echo "No." ?></td>
                         <td class="text-left"><?php echo $text_model; ?></td>
+                        <td class="text-left"><?php echo $text_name; ?></td>
                         <td class="text-right"><?php echo $text_price; ?></td>
                         <td class="text-right"><?php echo $text_quantity; ?></td>
                         <td class="text-right"><?php echo $text_sub_total; ?></td>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($products as $product) { ?>
+                    <?php
+                        $row_index = 0;
+                        foreach ($products as $product) {
+                            $row_index++;
+                    ?>
                     <tr>
-                        <td class="text-left" data-id="<?php echo $product['product_id']; ?>">
-                            <a href="<?php echo $product['href']; ?>">
-                                <?php echo $product['name']; ?>
-                            </a>
+                        <td class="row-number text-right">
+                            <?php echo $row_index; ?>
                         </td>
-                        <td class="text-left">
+                        <td class="model text-left" data-id="<?php echo $product['product_id']; ?>">
                             <span class="model">
                                 <?php echo $product['model']; ?>
                             </span>
+                        </td>
+                        <td class="name text-left">
+                            <a href="<?php echo $product['href']; ?>">
+                                <?php echo $product['name']; ?>
+                            </a>
                         </td>
                         <td class="price text-right">
                             <?php
@@ -83,7 +91,7 @@
     function restoreProductQtyFromCart(productId, qty) {
         var rows = $('table.products.table-bordered tbody tr');
         for (var i = 0; i < rows.length; i++) {
-            var rowProductId = $($(rows[i]).find("td")[0]).data("id");
+            var rowProductId = $($(rows[i]).find("td.model")[0]).data("id");
 //            console.log("rowProductId:" + rowProductId + ", productId:" + productId);
             if (rowProductId == productId) {
                 $(rows[i]).find("#quantity").val(qty);
@@ -98,16 +106,22 @@
 //            var productId = $($(rows[i]).find("td")[0]).data("id");
 //            cart.remove(productId);
 //        }
-        for (var i = 0; i < rows.length; i++) {
-            var productId = $($(rows[i]).find("td")[0]).data("id");
-            var qty = $(rows[i]).find("#quantity").val();
-            console.log("productId:[" + productId + "], qty:[" + qty + "]");
-            if (qty > 0)
-                cart.add(productId, qty);
-        }
-        setTimeout(function () {
-            document.location.href = "<?php echo $checkout; ?>";
-        }, 1000);
+        cart.removeAll(function (success) {
+            //alert(success);
+            for (var i = 0; i < rows.length; i++) {
+                var productId = $($(rows[i]).find("td.model")[0]).data("id");
+                var productName = $(rows[i]).find("td.name")[0].innerText;
+                var qty = $(rows[i]).find("#quantity").val();
+                if (qty > 0) {
+                    console.log("訂購產品:[" + productName + "], id:[" + productId + "], 數量:[" + qty + "]");
+                    cart.add(productId, qty);
+                }
+            }
+
+//            setTimeout(function () {
+//                document.location.href = "<?php echo $checkout; ?>";
+//            }, 1000);
+        });
     }
     //計算每個產品的小計及總金額
     function countTotalPrice() {
@@ -121,16 +135,16 @@
             $(rows[i]).find("td.subtotal")[0].innerText = subTotal;
             totalPrice += subTotal;
         }
-        console.log("TotalPrice:" + totalPrice);
+        console.log("目前訂單總金額:" + totalPrice);
         $("#totalPrice").text(totalPrice);
     }
     //取得商品小計
     function getSubTotal(qty, price) {
         try {
-            return parseInt(Number(qty) * Number(price));
+            return parseInt(Number(qty) * Number(price.replace(/,/gi, '')));
         }
         catch (e) {
-            console.error(e);
+            console.error("取商品小計發生錯誤！\n" + e);
             return 0;
         }
     }
@@ -153,8 +167,10 @@
     });
 
     $(document).ready(function () {
+        console.log('總產品數量:' + '<?php echo count($products); ?>');
+
         var cart_products = JSON.parse('<?php echo json_encode($cart_products); ?>');
-//        console.log(cart_products);
+//        console.log(cart_products.length);
         for (var i = 0; i < cart_products.length; i++) {
             var product = cart_products[i];
 //            console.log("product_id:" + product.product_id + ", qty:" + product.quantity);

@@ -32,16 +32,17 @@ class ControllerModuleFeatured extends Controller {
 		//結帳頁面導向連結
 		$data['checkout'] = $this->url->link('checkout/checkout', '', true);
 
-		if (!$setting['limit']) {
-			$setting['limit'] = 4;
-		}
+//		if (!$setting['limit']) {
+//			$setting['limit'] = 4;
+//		}
 
-		if (!empty($setting['product'])) {
-			$products = array_slice($setting['product'], 0, (int)$setting['limit']);
+		//改成所有產品全撈
+//		if (!empty($setting['product'])) {
+//			$products = array_slice($setting['product'], 0, (int)$setting['limit']);
 
-			foreach ($products as $product_id) {
-				$product_info = $this->model_catalog_product->getProduct($product_id);
-
+//			foreach ($products as $product_id) {
+			$all_products = $this->model_catalog_product->getAllProducts();
+			foreach ($all_products as $product_info) {
 				if ($product_info) {
 					if ($product_info['image']) {
 						$image = $this->model_tool_image->resize($product_info['image'], $setting['width'], $setting['height']);
@@ -74,20 +75,21 @@ class ControllerModuleFeatured extends Controller {
 					}
 
 					$data['products'][] = array(
-						'product_id'  => $product_info['product_id'],
-						'thumb'       => $image,
-						'name'        => $product_info['name'],
-						'model'       => $product_info['model'],
+						'product_id' => $product_info['product_id'],
+						'thumb' => $image,
+						'name' => $product_info['name'],
+						'model' => $product_info['model'],
 						'description' => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-						'price'       => $price,
-						'special'     => $special,
-						'tax'         => $tax,
-						'rating'      => $rating,
-						'href'        => $this->url->link('product/product', 'product_id=' . $product_info['product_id'])
+						'price' => $price,
+						'special' => $special,
+						'tax' => $tax,
+						'rating' => $rating,
+						'href' => $this->url->link('product/product', 'product_id=' . $product_info['product_id'])
 					);
 				}
 			}
-		}
+//			}
+//		}
 
 		if ($data['products']) {
 			return $this->load->view('module/featured', $data);
