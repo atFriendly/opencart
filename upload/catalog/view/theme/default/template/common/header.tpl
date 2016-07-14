@@ -46,11 +46,11 @@
       <?php echo $language; ?>
     <?php } ?>
     -->
-    <div id="logo" style='padding-top:5px; float:left;'>
+    <div id="logo" style='padding-top:0px;height:42px; float:left;margin-top: 6px;margin-bottom: 0px'>
         <?php if ($logo) { ?>
           <a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" /></a>
         <?php } else { ?>
-          <h1><a href="<?php echo $home; ?>"><?php echo $name; ?></a></h1>
+          <a style='font-size:36px;line-height:1;font-weight:bold;color:#363638;text-transform:uppercase;font-family:Microsoft YaHei;'  href="<?php echo $home; ?>"><?php echo $name; ?></a>
         <?php } ?>
       </div>
     <?php if ($isFromLogin) {  ?>
