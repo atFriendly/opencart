@@ -33,10 +33,10 @@
                             $row_index++;
                     ?>
                     <tr>
-                        <td class="row-number text-right ">
+                        <td class="row-number text-right  text-v-align-middle">
                             <?php echo $row_index; ?>
                         </td>
-                        <td class="text-center" style="padding: 0px;">
+                        <td class="text-center text-v-align-middle" style="padding: 0px;">
                             <?php if ($product['thumb']) { ?>
                             <a href="<?php echo $product['href']; ?>">
                                 <img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>"
@@ -44,17 +44,17 @@
                             </a>
                             <?php } ?>
                         </td>
-                        <td class="model text-left" data-id="<?php echo $product['product_id']; ?>">
+                        <td class="model text-left text-v-align-middle" data-id="<?php echo $product['product_id']; ?>">
                             <span class="model">
                                 <?php echo $product['model']; ?>
                             </span>
                         </td>
-                        <td class="name text-left">
+                        <td class="name text-left text-v-align-middle">
                             <a href="<?php echo $product['href']; ?>">
                                 <?php echo $product['name']; ?>
                             </a>
                         </td>
-                        <td class="price text-right">
+                        <td class="price text-right text-v-align-middle">
                             <?php
                             if ($product['price'] or $product['special']) {
                                 if ($product['special']) {
@@ -66,10 +66,10 @@
                             }
                             ?>
                         </td>
-                        <td class="text-right" align="right">
-                            <input class="form-control" type="number" id="quantity" min="0" max="999" value="0" style="display: inline; font-size: 15px; "/>
+                        <td class="text-right text-v-align-middle">
+                            <input class="form-control text-right" type="number" id="quantity" min="0" max="999" value="0" style="display: inline; font-size: 15px; padding: 4px;"/>
                         </td>
-                        <td class="subtotal text-right">
+                        <td class="subtotal text-right text-v-align-middle">
                             0
                         </td>
                     </tr>

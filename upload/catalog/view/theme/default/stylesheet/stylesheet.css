@@ -752,6 +752,10 @@ h2.price {
 }
 
 /* 自定義區塊 */
+/* 文字垂直置中 */
+.text-v-align-middle {
+	vertical-align: middle !important;
+}
 /* 訂單總計-金額 */
 .total-price {
 	display: block;
